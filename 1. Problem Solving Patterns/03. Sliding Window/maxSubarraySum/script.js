@@ -3,13 +3,13 @@ Write a function called maxSubarraySum which accepts an array of integers and a 
 */
 
 function maxSubarraySum(arr, n) {
+  if (arr.length < n) return null;
   let maxSum = 0;
   let tempSum = 0;
 
   for (let i = 0; i < n; i++) {
     maxSum += arr[i];
   }
-  // console.log(maxSum);
   tempSum = maxSum;
 
   for (let i = n; i < arr.length; i++) {
