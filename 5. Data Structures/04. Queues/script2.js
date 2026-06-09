@@ -1,0 +1,67 @@
+class Stack {
+  constructor() {
+    this.q1 = new Queue();
+    this.q2 = new Queue();
+  }
+  push(val) {
+    this.q1.enqueue(val);
+    return this;
+  }
+  pop() {
+    if (this.q1.size === 0) return null;
+    // Move everything except the last element from q1 → q2
+    while (this.q1.size > 1) {
+      this.q2.enqueue(this.q1.dequeue());
+    }
+    // The one remaining element is our "top of stack"
+    let popped = this.q1.dequeue();
+    // Swap q1 and q2 so q1 is always the active queue
+    let temp = this.q1;
+    this.q1 = this.q2;
+    this.q2 = temp;
+
+    return popped;
+  }
+}
+
+// QUEUE AND NODE HAVE BEEN IMPLEMENTED FOR YOU
+
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class Queue {
+  constructor() {
+    this.first = null;
+    this.last = null;
+    this.size = 0;
+  }
+  enqueue(data) {
+    var node = new Node(data);
+
+    if (!this.first) {
+      this.first = node;
+      this.last = node;
+    } else {
+      this.last.next = node;
+      this.last = node;
+    }
+
+    return ++this.size;
+  }
+
+  dequeue() {
+    if (!this.first) return null;
+
+    var temp = this.first;
+    if (this.first == this.last) {
+      this.last = null;
+    }
+    this.first = this.first.next;
+    this.size--;
+    return temp.value;
+  }
+}
